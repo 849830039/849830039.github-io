@@ -1,31 +1,243 @@
-extends includes/layout.pug
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>我的博客 | Hexo</title><meta name="author" content="John Doe"><meta name="copyright" content="John Doe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="我在C++Primer7.1.4一节中曾看到（以下是原文）：  合成的默认构造函数 我们的Sales_data类并没有定义任何构造函数，可是之前使用了Sales_data对象的程序仍然可以正确地编译和运行。举个例子，第229页的程序定义了两个对象： 12Sales_data total;&#x2F;&#x2F;保存当前求和结果的变量Sales_data trans;&#x2F;&#x2F;保存下一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我的博客">
+<meta property="og:url" content="http://example.com/2020/11/15/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="我在C++Primer7.1.4一节中曾看到（以下是原文）：  合成的默认构造函数 我们的Sales_data类并没有定义任何构造函数，可是之前使用了Sales_data对象的程序仍然可以正确地编译和运行。举个例子，第229页的程序定义了两个对象： 12Sales_data total;&#x2F;&#x2F;保存当前求和结果的变量Sales_data trans;&#x2F;&#x2F;保存下一">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/null">
+<meta property="article:published_time" content="2020-11-15T07:32:24.000Z">
+<meta property="article:modified_time" content="2020-11-16T14:17:08.161Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/null"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2020/11/15/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
 
-block content
-  #post
-    if top_img === false
-      include includes/header/post-info.pug
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
 
-    article#article-container.post-content!=page.content
-    include includes/post/post-copyright.pug
-    .tag_share
-      if (theme.post_meta.post.tags)
-        .post-meta__tag-list
-          each item, index in page.tags.data
-            a(href=url_for(item.path)).post-meta__tags #[=item.name]
-      include includes/third-party/share/index.pug
-        
-    if theme.reward.enable
-      !=partial('includes/post/reward', {}, {cache:theme.fragment_cache})
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
 
-    //- ad
-    if theme.ad && theme.ad.post
-      .post-ad!=theme.ad.post
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
 
-    include includes/pagination.pug
-    if theme.related_post && theme.related_post.enable
-      != related_posts(page,site.posts)
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-11-16 22:17:08'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
 
-    if page.comments !== false && theme.comments && theme.comments.use
-      - var commentsJsLoad = true
-      !=partial('includes/third-party/comments/index', {}, {cache:theme.fragment_cache})
-      
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/null" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">2</div></a></div></div></div><hr/></div></div><div id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Hexo</a></span><span id="menus"><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">我的博客</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2020-11-15T07:32:24.000Z" title="Created 2020-11-15 15:32:24">2020-11-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2020-11-16T14:17:08.161Z" title="Updated 2020-11-16 22:17:08">2020-11-16</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>我在C++Primer7.1.4一节中曾看到（以下是原文）：</p>
+<hr>
+<p><strong>合成的默认构造函数</strong></p>
+<p>我们的Sales_data类并没有定义任何构造函数，可是之前使用了Sales_data对象的程序仍然可以正确地编译和运行。举个例子，第229页的程序定义了两个对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Sales_data total;&#x2F;&#x2F;保存当前求和结果的变量</span><br><span class="line">Sales_data trans;&#x2F;&#x2F;保存下一条交易数据的变量</span><br></pre></td></tr></table></figure>
+
+<p>这时我们不禁要问：total和trans是如何初始化的呢？</p>
+<p>我们没有为这些对象提供初始值，因此我们知道它们执行了默认初始化。类通过一个特殊的构造函数来控制默认初始化过程，这个函数叫做默认构造函数。默认构造函数无须任何实参。</p>
+<p>如我们所见，默认构造函数在很多方面都有其特殊性。其中之一是，如果我们的类没有显式地定义构造函数，那么编译器就会为我们隐式地定义一个默认构造函数（ps：我曾以为，对于所有的没有显式定义构造函数的类，编译器都会为我们隐式地定义一个默认构造函数，但实际上并不是这样的）。</p>
+<p>编译器创建的构造函数又被称为合成的默认构造函数。对于大多数类来说，这个合成的默认构造函数将按照如下规则初始化类的数据成员：</p>
+<p>· 如果存在类内的初始值，用它来初始化成员。</p>
+<p>· 否则，默认初始化该成员。</p>
+<p>因为Sales_data为units_sold和revenue提供了初始值，所以合成的默认构造函数将使用这些值来初始化对应的成员；同时，它把bookNo默认初始化成一个空字符串。</p>
+<p><strong>某些类不能依赖于合成的默认构造函数</strong></p>
+<p>合成的默认构造函数只适合非常简单的类，比如现在定义的这个Sales_data版本。对于一个普通的类来说，必须定义它自己的默认构造函数，原因有三：第一个原因也是最容易理解的一个原因就是编译器只有在发现类不包含任何构造函数的情况下才会替我们生成一个默认的构造函数。一旦我们定义了一些其他的构造函数，那么除非我们再定义一个默认的构造函数，否则类将没有默认构造函数。这条规则的依据是，如果一个类在某种情况下需要控制对象初始化，那么该类很可能在所有情况下都需要控制。</p>
+<p>Note:<strong>只有当类没有声明任何构造函数时，编译器才会自动地生成默认构造函数</strong>。</p>
+<p>第二个原因是对于某些类来说，合成的默认构造函数可能执行错误的操作。回忆我们之前介绍过的，<strong>如果定义在块中的内置类型或复合类型（比如数组和指针）的对象被默认初始化，则它们的值将是未定义的</strong>。<strong>该准则同样适用于默认初始化的内置类型成员</strong>。因此，含有内置类型或复合类型成员的类应该在类的内部初始化这些成员，或者定义一个自己的默认构造函数。否则，用户在创建类的对象时就可能得到未定义的值。</p>
+<p>Warnning:如果类包含有内置类型或者复合类型的成员，则只有当这些成员全都被赋予了类内的初始值时，这个类才适合于使用合成的默认构造函数。</p>
+<p>第三个原因是<strong>有的时候编译器不能为某些类合成默认的构造函数。例如，如果类中包含一个其他类类型的成员且这个成员的类型没有默认构造函数，那么编译器将无法初始化该成员</strong>。对于这样的类来说，我们必须自定义默认构造函数，否则该类将没有可用的默认构造函数。在13.1.6节（第449页）中我们将看到还有其他一些情况也会导致编译器无法生成一个正确的默认构造函数。</p>
+<hr>
+<p>看下面这段代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Foo&#123;</span><br><span class="line">public:</span><br><span class="line">    int val;</span><br><span class="line">    Foo *pnext;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">void foo_bar()</span><br><span class="line">&#123;</span><br><span class="line">    &#x2F;&#x2F;bar数据成员清0</span><br><span class="line">    Foo bar;</span><br><span class="line">    if(bar.val || bar.pnext)</span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F;do something...</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;...    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，正确的程序语意是要求Foo有一个默认构造函数，可以将它的两个members初始化为0。实际上，上述程序片段并不会合成出一个默认构造函数。因为你根本执行不了程序。</p>
+<p>在Effective C++中条款5曾写到(以下是原文)：</p>
+<hr>
+<p>什么时候empty class（空类）不再是个empty class呢？当C++处理过它之后。是的，如果你自己没声明，编译器就会为它声明（编译器版本的）一个copy构造函数、一个copy assignment操作符和一个析构函数。此外如果你没有声明任何构造函数，编译器也会为你声明一个default构造函数。所有这些函数都是public且inline （见条款30）。因此，如果你写下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Empty&#123;&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这就好像你写下这样的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Empty&#123;</span><br><span class="line">public:</span><br><span class="line">    Empty()&#123;&#125;</span><br><span class="line">    Empty(const Empty&amp; rhs)&#123;&#125;</span><br><span class="line">    ~Empty()&#123;&#125;</span><br><span class="line">    Empty&amp; operator&#x3D;(const Empty&amp; rhs)&#123;&#125;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>惟有当这些函数<strong>被需要</strong>（被调用），它们才会被编译器创建出来。程序中需要它们是很平常的事。</p>
+<hr>
+<p>惟有当这些函数<strong>被需要</strong>（被调用），它们才会被编译器创建出来。那么很明显，我们这段代码，编译器并不需要默认构造函数，所以默认构造函数并不会被编译器创建出来。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;这段代码，编译器并不需要默认构造函数，所以默认构造函数并不会被编译器创建出来</span><br><span class="line">class Foo&#123;</span><br><span class="line">public:</span><br><span class="line">    int val;</span><br><span class="line">    Foo *pnext;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">void foo_bar()</span><br><span class="line">&#123;</span><br><span class="line">    &#x2F;&#x2F;bar数据成员清0</span><br><span class="line">    Foo bar;</span><br><span class="line">    if(bar.val || bar.pnext)</span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F;do something...</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;...    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么，什么时候编译器需要默认构造函数并合成出一个默认构造函数呢？此外，<strong>被合成出来的默认构造函数只执行编译器所需的行动</strong>。也就是说，即使有需要为class Foo合成一个默认构造函数，默认构造函数也不会将两个数据成员初始化为0。为了让上一段代码正确执行，你必须提供一个显式的默认构造函数，将两个数据成员适当地初始化。</p>
+<p>上面说过当编译器需要默认构造函数的时候，编译器才会合成它。下面4小节分别讨论什么时候编译器需要它。</p>
+<h4 id="1-“带有-默认构造函数”的类成员对象"><a href="#1-“带有-默认构造函数”的类成员对象" class="headerlink" title="1.“带有 默认构造函数”的类成员对象"></a><strong>1.“带有 默认构造函数”的类成员对象</strong></h4><p>如果一个class没有任何构造函数，但它内含一个类成员对象，而后者有默认构造函数，那么这个class的隐式地默认构造函数就是有用的，编译器需要为该 class 合成出一个默认构造函数。不过这个合成操作只有在构造函数真正需要被调用时才会发生。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Foo&#123;</span><br><span class="line">public:</span><br><span class="line">    Foo():a(0) &#123;&#125;;</span><br><span class="line">    int a;</span><br><span class="line">    &#x2F;&#x2F;...</span><br><span class="line">&#125;;</span><br><span class="line">class Bar&#123;</span><br><span class="line">public:</span><br><span class="line">    Foo foo;</span><br><span class="line">    int b;</span><br><span class="line">&#125;;</span><br><span class="line">void foo_bar()</span><br><span class="line">&#123;</span><br><span class="line">    Bar bar;&#x2F;&#x2F;Bar::foo必须在此初始化。</span><br><span class="line">            &#x2F;&#x2F;Bar::foo是一个成员对象，其中class Foo拥有默认构造函数</span><br><span class="line">            &#x2F;&#x2F;Bar::b没有被初始化</span><br><span class="line">    std::cout &lt;&lt; bar.foo.a &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; bar.b &lt;&lt; std::endl;</span><br><span class="line">    &#x2F;&#x2F;...        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>被合成的Bar的默认构造函数内含必要的代码，能够调用class Foo的默认构造函数来处理成员对象Bar::foo，但它并不产生任何代码来初始化Bar::b。是的，将Bar::foo初始化是编译器的责任，将Bar::b初始化则是程序员的责任。被合成的默认构造函数看起来可能像这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;Bar的默认构造函数可能会被这样合成</span><br><span class="line">&#x2F;&#x2F;为成员foo调用class Foo的默认构造函数</span><br><span class="line">inline</span><br><span class="line">Bar::Bar()</span><br><span class="line">&#123;</span><br><span class="line">    &#x2F;&#x2F;C++伪代码</span><br><span class="line">    foo.Foo::Foo();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为了让这个程序片段能够正确执行，成员b也需要被初始化。让我们假设程序员经由下面的默认构造函数提供了str的初始化操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;程序员定义的默认构造函数</span><br><span class="line">Bar::Bar()&#123; str &#x3D; 0; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在程序的需求获得满足了，但是编译器还需要初始化成员类对象foo。由于默认构造函数已经被显式地定义出来，编译器没办法合成第二个。那么编译器会怎么做呢？</p>
+<p>编译器的行动是：“如果class A内含一个或一个以上的成员类对象，那么 class A 的每一个构造函数必须调用每一个类对象的默认构造函数”。编译器会扩张已存在的构造函数，在其中安插一些代码，使得在你的代码被执行之前，先调用必要的默认构造函数。延续前一个例子，扩张后的构造函数可能像这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;扩张后的默认构造函数</span><br><span class="line">Bar::Bar()</span><br><span class="line">&#123;</span><br><span class="line">    foo.Foo::Foo();</span><br><span class="line">    str &#x3D; 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Foo &#123;</span><br><span class="line">public:</span><br><span class="line">    Foo():a(0) &#123;&#125;;</span><br><span class="line">    int a;</span><br><span class="line">    &#x2F;&#x2F;...</span><br><span class="line">&#125;;</span><br><span class="line">class Bar &#123;</span><br><span class="line">public:</span><br><span class="line">    Foo foo;</span><br><span class="line">    Bar(int _b):b(_b)&#123;&#125;</span><br><span class="line">    int b;</span><br><span class="line">&#125;;</span><br><span class="line">void foo_bar()</span><br><span class="line">&#123;</span><br><span class="line">    Bar bar(5);&#x2F;&#x2F;如果class Bar内含一个或一个以上的成员类对象，</span><br><span class="line">               &#x2F;&#x2F;那么class Bar的每一个构造函数必须调用每一个类对象</span><br><span class="line">               &#x2F;&#x2F;的默认构造函数</span><br><span class="line">    std::cout &lt;&lt; bar.foo.a &lt;&lt; std::endl;&#x2F;&#x2F;输出0</span><br><span class="line">    std::cout &lt;&lt; bar.b &lt;&lt; std::endl;&#x2F;&#x2F;输出5</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果有多个成员类对象都要求初始化操作，将如何？C++语言要求以成员对象在class中的声明顺序来调用各个构造函数。这一点由编译器完成，它为每一个构造函数安插程序代码，以“成员声明顺序”调用每一个成员所关联的默认构造函数。这些代码将被安插在你的代码之前之前。举个例子，假设我们有以下三个classes：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Dopey&#123;</span><br><span class="line">public:</span><br><span class="line">    Dopey()&#123;&#125;</span><br><span class="line">    &#x2F;&#x2F;...</span><br><span class="line">&#125;;</span><br><span class="line">class Sneezy&#123;</span><br><span class="line">public:</span><br><span class="line">    Sneezy()&#123;&#125;</span><br><span class="line">    &#x2F;&#x2F;...</span><br><span class="line">&#125;;</span><br><span class="line">class Bashful&#123;</span><br><span class="line">public:</span><br><span class="line">    Bashful()&#123;&#125;</span><br><span class="line">    &#x2F;&#x2F;...    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>以及一个class Snow_White：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Snow_White&#123;</span><br><span class="line">public:</span><br><span class="line">    Dopey dopey;</span><br><span class="line">    Sneezy sneezy;</span><br><span class="line">    Bashful bashful;</span><br><span class="line">private:</span><br><span class="line">    int mumble;        </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>如果Snow_White没有定义默认构造函数，就会有一个有用的默认构造函数被合成出来，依序调用Dopey、Sneezy、Bashful的默认构造函数。然而如果Snow_White定义了下面这样的默认构造函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;程序员所写的默认构造函数</span><br><span class="line">Snow_White::Snow_White():sneezy(1024)</span><br><span class="line">&#123;</span><br><span class="line">    mumble &#x3D; 2048;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>它会被扩张为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;编译器扩张后的默认构造函数</span><br><span class="line">Snow_White::Snow_White():sneezy(1024)</span><br><span class="line">&#123;</span><br><span class="line">    dopey.Dopey::Dopey();</span><br><span class="line">    sneezy.Sneezy::Sneezy();</span><br><span class="line">    bashful.Bashful::Bashful();</span><br><span class="line">    mumble &#x3D; 2048;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-带有默认构造函数的基类"><a href="#2-带有默认构造函数的基类" class="headerlink" title="2.带有默认构造函数的基类"></a><strong>2.带有默认构造函数的基类</strong></h4><p>类似的道理，如果一个没有任何构造函数的类派生自一个带有默认构造函数的基类，那么派生类的默认构造函数因被编译器需要所以被合成出来。它将调用上一层基类的默认构造函数（根据它们的声明顺序）。对一个后继派生的类而言，这个合成的默认构造函数和一个被显式提供的默认构造函数没有什么差异。</p>
+<p>如果设计者提供多个构造函数，但其中都没有默认构造函数，和上一条一样，编译器会扩张现有的每一个构造函数，将合成默认构造函数的内容插入到每一个构造函数中去。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">class A &#123;</span><br><span class="line">public:</span><br><span class="line">	A()&#123;&#125;</span><br><span class="line">	int val;</span><br><span class="line">&#125;;</span><br><span class="line">class B :public A &#123;</span><br><span class="line">public:</span><br><span class="line">	int c;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	B b;&#x2F;&#x2F;编译器为B合成默认构造函数，A::val和B::c被默认初始化，</span><br><span class="line">        &#x2F;&#x2F;其值是未定义的</span><br><span class="line">	std::cout &lt;&lt; b.val &lt;&lt; std::endl;</span><br><span class="line">	std::cout &lt;&lt; b.c &lt;&lt; std::endl;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">class A &#123;</span><br><span class="line">public:</span><br><span class="line">	A()&#123;&#125;</span><br><span class="line">	int val;</span><br><span class="line">&#125;;</span><br><span class="line">class B :public A &#123;</span><br><span class="line">public:</span><br><span class="line">	B(int _c) &#123; c &#x3D; _c; &#125;</span><br><span class="line">	int c;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	B b(5);&#x2F;&#x2F;编译器会扩张B的每一个构造函数，将合成出来的</span><br><span class="line">          &#x2F;&#x2F;默认构造函数的内容插入到每一个构造函数内</span><br><span class="line">	std::cout &lt;&lt; b.val &lt;&lt; std::endl;</span><br><span class="line">	std::cout &lt;&lt; b.c &lt;&lt; std::endl;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-带有一个虚函数的类"><a href="#3-带有一个虚函数的类" class="headerlink" title="3.带有一个虚函数的类"></a><strong>3.带有一个虚函数的类</strong></h4><p>另有两种情况，也需要合成出默认构造函数：</p>
+<p>1.class声明（或继承）一个虚函数。</p>
+<p>2.class派生自一个继承串链，其中有一个或更多的虚基类。</p>
+<p>不管哪一种情况，由于缺乏由user声明的构造函数，编译器会详细记录合成一个默认构造函数的必要信息。以下面这个程序片段为例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Widget&#123;</span><br><span class="line">public:</span><br><span class="line">    virtual void flip();</span><br><span class="line">    &#x2F;&#x2F;...</span><br><span class="line">&#125;;</span><br><span class="line">void flip(const Widget&amp; widget)</span><br><span class="line">&#123;</span><br><span class="line">    widget.flip(); </span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;假设Bell和Whistle都派生自Widget</span><br><span class="line">void foo()</span><br><span class="line">&#123;</span><br><span class="line">    Bell b;</span><br><span class="line">    Whistle w;</span><br><span class="line">    flip(b);</span><br><span class="line">    flip(w);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面两个扩张行动会在编译期间发生：</p>
+<p>1.一个虚函数表（在 cfront中被称为 vtbl）会被编译器产生出来，内放 class的虚函数地址。</p>
+<p>2.在每一个类对象中，一个额外的指针成员（也就是 vptr）会被编译器合成出来，内含相关之 class 虚函数表的地址。</p>
+<p>此外，widget.flip()的虚拟调用操作会被重新改写，以使用widget的vptr和vtbl中的flip()条目：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;widget.flip()的虚拟调用操作的转变</span><br><span class="line">(*widget.vptr[1])(&amp;widget)</span><br></pre></td></tr></table></figure>
+
+<p>为了让这个机制发挥功效，编译器必须为每一个 Widget（或其派生类的） 对象的vptr设定初值，放置适当的虚函数表地址。对于class所定义的每一个构造函数，编译器会安插一些代码来做这样的事情（请看 5.2 节）。对于那些未声明任何构造函数的classes，编译器会为它们合成一个默认构造函数，以便正确地初始化每一个类对象的vptr。</p>
+<h4 id="4-带有一个虚基类的类"><a href="#4-带有一个虚基类的类" class="headerlink" title="4.带有一个虚基类的类"></a><strong>4.带有一个虚基类的类</strong></h4><p>虚基类的实现法在不同的编译器之间有极大的差异。然而，每一种实现法的共同点在于必须使虚基类在其每一个派生类对象中的位置，能够于执行期准备妥当。例如在下面这段程序代码中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class X&#123;public:int i;&#125;;</span><br><span class="line">class A:public virtual X&#123;public:int j;&#125;;</span><br><span class="line">class B:public virtual X&#123;public:double d;&#125;;</span><br><span class="line">class C:public A,public B&#123;public:int k;&#125;;</span><br><span class="line">&#x2F;&#x2F;无法在编译时期决定出pa-&gt;X::i的位置</span><br><span class="line">void foo(const A* pa)</span><br><span class="line">&#123; </span><br><span class="line">    pa-&gt;i &#x3D; 1024;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    foo(new A);</span><br><span class="line">    foo(new C);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译器无法固定住foo()之中经由pa而存取的X::i”的实际偏移位置，因为pa的真正类型可以改变。编译器必须改变“执行存取操作”的那些代码，使X::i可以延迟至执行期才决定下来。原先cfront的做法是靠“在派生类对象的每一个虚基类中安插一个指针”完成。所有“经由引用或指针来存取一个虚基类”的操作都可以通过相关指针完成。在我的例子中，foo()可以被改写如下，以符合这样的实现策略：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;可能的编译器转变操作</span><br><span class="line">void foo(const A* pa)&#123; pa-&gt;__vbcX-&gt;i &#x3D; 1024;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中__vbcX表示编译器所产生的指针，指向虚基类X。</p>
+<p>正如你所揣测的那样，__vbcX是在类对象构造期间被完成的。对于 class 所定义的每一个构造函数，编译器会安插那些“允许每一个虚基类的执行期存取操作”的代码。如果class没有声明任何构造函数，编译器必须为它合成一个默认构造函数。</p>
+<p>C++新手一般有两个常见的误解(没错就是我了)：</p>
+<p>1.任何 class如果没有定义 default constructor，就会被合成出一个来。</p>
+<p>2.编译器合成出来的 default constructor 会显式设定“class 内每一个 datamember的默认值”。</p>
+<p>如你所见，没有一个是真的！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">John Doe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2020/11/15/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/">http://example.com/2020/11/15/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/null" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2020/11/11/hello-world/"><img class="next-cover" src="/" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Hello World</div></div></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/null" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">John Doe</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">2</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E2%80%9C%E5%B8%A6%E6%9C%89-%E9%BB%98%E8%AE%A4%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E2%80%9D%E7%9A%84%E7%B1%BB%E6%88%90%E5%91%98%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.</span> <span class="toc-text">1.“带有 默认构造函数”的类成员对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%B8%A6%E6%9C%89%E9%BB%98%E8%AE%A4%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%9A%84%E5%9F%BA%E7%B1%BB"><span class="toc-number">2.</span> <span class="toc-text">2.带有默认构造函数的基类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%B8%A6%E6%9C%89%E4%B8%80%E4%B8%AA%E8%99%9A%E5%87%BD%E6%95%B0%E7%9A%84%E7%B1%BB"><span class="toc-number">3.</span> <span class="toc-text">3.带有一个虚函数的类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%B8%A6%E6%9C%89%E4%B8%80%E4%B8%AA%E8%99%9A%E5%9F%BA%E7%B1%BB%E7%9A%84%E7%B1%BB"><span class="toc-number">4.</span> <span class="toc-text">4.带有一个虚基类的类</span></a></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><div class="content"><a class="title" href="/2020/11/15/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/" title="我的博客">我的博客</a><time datetime="2020-11-15T07:32:24.000Z" title="Created 2020-11-15 15:32:24">2020-11-15</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2020/11/11/hello-world/" title="Hello World">Hello World</a><time datetime="2020-11-11T02:41:06.873Z" title="Created 2020-11-11 10:41:06">2020-11-11</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 By John Doe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>
