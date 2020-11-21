@@ -1,0 +1,302 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hexo | Hexo</title><meta name="author" content="John Doe"><meta name="copyright" content="John Doe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="2.3 程序转化语意学（Program Transformation）已知下面的程序片段： 12345678#include &quot;X.h&quot;X foo()&amp;#123;	X xx;	&#x2F;&#x2F;...	return xx;&amp;#125;  一个人可能会做出以下假设： 1.每次 foo（）被调用，就传回 xx的值。 2.如果 class X定义了一个 copy constructor，那么当 f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2020/11/19/2.3%E7%A8%8B%E5%BA%8F%E8%BD%AC%E5%8C%96%E8%AF%AD%E4%B9%89%E5%AD%A6/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="2.3 程序转化语意学（Program Transformation）已知下面的程序片段： 12345678#include &quot;X.h&quot;X foo()&amp;#123;	X xx;	&#x2F;&#x2F;...	return xx;&amp;#125;  一个人可能会做出以下假设： 1.每次 foo（）被调用，就传回 xx的值。 2.如果 class X定义了一个 copy constructor，那么当 f">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2020-11-19T02:04:09.537Z">
+<meta property="article:modified_time" content="2020-11-19T07:38:31.105Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/%E6%AF%94%E9%82%A3%E5%90%8D%E5%B1%85%E5%A4%A9%E5%AD%90.png"><link rel="canonical" href="http://example.com/2020/11/19/2.3%E7%A8%8B%E5%BA%8F%E8%BD%AC%E5%8C%96%E8%AF%AD%E4%B9%89%E5%AD%A6/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-11-19 15:38:31'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/%E6%AF%94%E9%82%A3%E5%90%8D%E5%B1%85%E5%A4%A9%E5%AD%90.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Hexo</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">No title</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2020-11-19T02:04:09.537Z" title="Created 2020-11-19 10:04:09">2020-11-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2020-11-19T07:38:31.105Z" title="Updated 2020-11-19 15:38:31">2020-11-19</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="2-3-程序转化语意学（Program-Transformation）"><a href="#2-3-程序转化语意学（Program-Transformation）" class="headerlink" title="2.3 程序转化语意学（Program Transformation）"></a>2.3 程序转化语意学（Program Transformation）</h1><p>已知下面的程序片段：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;X.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">X <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	X xx;</span><br><span class="line">	<span class="comment">//...</span></span><br><span class="line">	<span class="keyword">return</span> xx;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一个人可能会做出以下假设：</p>
+<p>1.每次 foo（）被调用，就传回 xx的值。</p>
+<p>2.如果 class X定义了一个 copy constructor，那么当 foo（）被调用时，保证该copy constructor也会被调用。</p>
+<p>第一个假设的真实性，必须视class X如何定义而定。第二个假设的真实性，虽然也部分地必须视class X如何定义而定，但最主要的还是视你的C++编译器所提供的进取性优化层级（degree of aggressive optimization）而定。一个人甚至可以假设在一个高质量的C++编译器中，上述两点对于class X的nontrivial definitions都不正确。以下小节将讨论其原因。</p>
+<h2 id="显式的初始化操作（Explicit-Initialization）"><a href="#显式的初始化操作（Explicit-Initialization）" class="headerlink" title="显式的初始化操作（Explicit Initialization）"></a>显式的初始化操作（Explicit Initialization）</h2><p>已知有这样的定义：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X x0;</span><br></pre></td></tr></table></figure>
+
+<p>下面的三个定义，每一个都明显地以x0来初始化其class object：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo_bar</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="function">X <span class="title">x1</span><span class="params">(x0)</span></span>;</span><br><span class="line">	X x2 = x0;</span><br><span class="line">	X X3 = X(x0);</span><br><span class="line">	<span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>必要的程序转化有两个阶段：</p>
+<p>1.重写每一个定义，其中的初始化操作会被剥除。（译注：这里所谓的“定义”是指上述的 x1， x2， x3三行；在严谨的 C++用词中，“定义”是指“占用内存”的行为。）</p>
+<p>2.class的 copy constructor调用操作会被安插进去。</p>
+<p>举个例子，在明确的双阶段转化之后，foo_bar（）可能看起来像这样：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//可能的程序转换</span></span><br><span class="line"><span class="comment">//C++ 伪代码</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo_bar</span><span class="params">()</span></span>&#123;</span><br><span class="line">	X x1;<span class="comment">//定义被重写,初始化操作被剥夺</span></span><br><span class="line">	X x2;<span class="comment">//定义被重写,初始化操作被剥夺</span></span><br><span class="line">	X x3;<span class="comment">//定义被重写,初始化操作被剥夺</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//编译器安插X copy construction的调用操作</span></span><br><span class="line">	x1.X::X(x0);</span><br><span class="line">	x2.X::X(x0);</span><br><span class="line">	x3.X::X(x0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中的：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x1.X::X(x0);</span><br></pre></td></tr></table></figure>
+
+<p>就表现出对以下的copy constructor的调用：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X::X(<span class="keyword">const</span> X&amp; xx);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="参数的初始化（Argument-Initialization）"><a href="#参数的初始化（Argument-Initialization）" class="headerlink" title="参数的初始化（Argument Initialization）"></a>参数的初始化（Argument Initialization）</h2><p>C++Standard说，把一个class object当做参数传给一个函数（或是作为一个函数的返回值），相当于以下形式的初始化操作：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X xx = arg;</span><br></pre></td></tr></table></figure>
+
+<p>其中xx代表形式参数（或返回值）而arg代表真正的参数值。因此，若已知这个函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(X x0)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>下面这样的调用方式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">X xx;</span><br><span class="line"><span class="comment">//...</span></span><br><span class="line">foo(xx);</span><br></pre></td></tr></table></figure>
+
+<p>将会要求局部实例（local instance）x0以memberwise的方式将xx当做初值。在编译器实现技术上，有一种策略是导入所谓的临时性 object，并调用 copy constructor将它初始化，然后将此临时性object交给函数。例如将前一段程序代码转换如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//C++伪代码</span></span><br><span class="line"><span class="comment">//编译器产生出来的临时对象</span></span><br><span class="line">X __temp0;</span><br><span class="line"></span><br><span class="line"><span class="comment">//编译器对 copy constructor的调用</span></span><br><span class="line">__temp0.X::X(xx);</span><br><span class="line"></span><br><span class="line"><span class="comment">//重新改写函数调用操作,以便使用上述的临时对象</span></span><br><span class="line">foo(__temp0);</span><br></pre></td></tr></table></figure>
+
+<p>然而这样的转换只做了一半功夫而已。你看出遗留问题了吗？问题出在foo（）的声明上。临时性object先以class X的copy constructor正确地设定了初值，然后再以bitwise方式拷贝到x0这个局部实例中。噢，真讨厌，foo（）的声明因而也必须被转化，形式参数必须从原先的一个 class X object 改变为一个 class Xreference，像这样：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(X&amp; x0)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>其中class X声明了一个destructor，它会在foo（）函数完成之后被调用，对付那个临时性的object。</p>
+<p>另一种实现方法是以“拷贝建构”（copy construct）的方式把实际参数直接建构在其应该的位置上，此位置视函数活动范围的不同，记录于程序堆栈中。在函数返回之前，局部对象（local object）的destructor（如果有定义的话）会被执行。Borland C++编译器就是使用此法，但它也提供一个编译选项，用以指定前一种做法，以便和其早期版本兼容。</p>
+<h2 id="返回值的初始化（Return-Value-Initialization）"><a href="#返回值的初始化（Return-Value-Initialization）" class="headerlink" title="返回值的初始化（Return Value Initialization）"></a>返回值的初始化（Return Value Initialization）</h2><p>已知下面这个函数定义：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">X <span class="title">bar</span><span class="params">()</span></span>&#123;</span><br><span class="line">	X xx;</span><br><span class="line">	<span class="comment">//处理xx...</span></span><br><span class="line">	<span class="keyword">return</span> xx;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>bar（）的返回值如何从局部对象xx中拷贝过来？Stroustrup在cfront中的解决做法是一个双阶段转化：</p>
+<p>1.首先加上一个额外参数，类型是 class object的一个 reference。这个参数将用来放置被“拷贝建构（copy constructed）”而得的返回值。</p>
+<p>2.在 return指令之前安插一个 copy constructor调用操作，以便将欲传回之object的内容当做上述新增参数的初值。</p>
+<p>真正的返回值是什么？最后一个转化操作会重新改写函数，使它不传回任何值。根据这样的算法，bar（）转换如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//函数转换</span></span><br><span class="line"><span class="comment">//以反映出copy constructor的应用</span></span><br><span class="line"><span class="comment">//C++伪代码</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bar</span><span class="params">(X&amp; __result)</span> <span class="comment">//加上一个额外参数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	X xx;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//编译器所产生的default constructor调用操作</span></span><br><span class="line">	xx.X::X();</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//...处理 XX</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//编译器所产生的copy constructor调用操作</span></span><br><span class="line">	__result.X::XX(xx);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在编译器必须转换每一个bar（）调用操作，以反映其新定义。例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X xx = bar();</span><br></pre></td></tr></table></figure>
+
+<p>将被转换为下列两个指令句：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//不用调用default constructor</span></span><br><span class="line">X xx;</span><br><span class="line">bar(xx);</span><br></pre></td></tr></table></figure>
+
+<p>而：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bar().memfunc();<span class="comment">//执行bar()所传回的X class object的memfunc()</span></span><br></pre></td></tr></table></figure>
+
+<p>可能被转化为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//编译器产生临时对象</span></span><br><span class="line">X __temp0;</span><br><span class="line">(bar(__temp0),__temp0).memfunc();</span><br></pre></td></tr></table></figure>
+
+<p>同理，如果程序声明了一个函数指针，像这样：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">X (*pf)();</span><br><span class="line">pf = bar;</span><br></pre></td></tr></table></figure>
+
+<p>它也必须被转化为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> (*pf)(X&amp;);</span><br><span class="line">pf = bar;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="在使用者层面做优化（Optimization-at-the-User-Level）"><a href="#在使用者层面做优化（Optimization-at-the-User-Level）" class="headerlink" title="在使用者层面做优化（Optimization at the User Level）"></a>在使用者层面做优化（Optimization at the User Level）</h2><p>Jonathan Shopiro最先提出“程序员优化”的观念：定义一个“计算用”的constructor。换句话说程序员不再写：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">X <span class="title">bar</span><span class="params">(<span class="keyword">const</span> T &amp;y, <span class="keyword">const</span> T &amp;z)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	X xx;</span><br><span class="line">	<span class="comment">//......以y和z来处理xx</span></span><br><span class="line">	<span class="keyword">return</span> xx;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那会要求xx被“memberwise”地拷贝到编译器所产生的__result之中。Jonathan定义另一个constructor，可以直接计算xx的值：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">X <span class="title">bar</span><span class="params">(<span class="keyword">const</span> T &amp;y, <span class="keyword">const</span> T &amp;z)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> X(y,z);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>于是当bar（）的定义被转换之后，效率会比较高：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//C++伪代码</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bar</span><span class="params">(X &amp;__result, <span class="keyword">const</span> T &amp;y, <span class="keyword">const</span> T &amp;z)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	__result.X::X(y,z);</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>__result被直接计算出来，而不是经由copy constructor拷贝而得！在这个层面上，class的设计是以效率考虑居多，而不是以“支持抽象化”为优先。</p>
+<h2 id="在编译器层面做优化（Optimization-at-the-CompilerLevel）"><a href="#在编译器层面做优化（Optimization-at-the-CompilerLevel）" class="headerlink" title="在编译器层面做优化（Optimization at the CompilerLevel）"></a>在编译器层面做优化（Optimization at the CompilerLevel）</h2><p>在一个像bar（）这样的函数中，所有的return指令传回相同的具名数值（译注：named value，我想作者意指第64页的xx），因此编译器有可能自己做优化，方法是以result 参数取代named return value。例如下面的bar（）定义：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">X <span class="title">bar</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    X xx;</span><br><span class="line">	<span class="comment">//......处理xx</span></span><br><span class="line">	<span class="keyword">return</span> xx;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译器把其中的xx以__result取代：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bar</span><span class="params">(X &amp;__result)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//default constructor被调用</span></span><br><span class="line">	<span class="comment">//C++伪代码</span></span><br><span class="line">	__result.X::X();</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//......直接处理__result</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样的编译器优化操作，有时候被称为Named Return Value（NRV）优化。NRV优化如今被视为标准C++编译器的一个义不容辞的优化操作——虽然其需求其实超越了正式标准之外。看下面的代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">test</span>&#123;</span></span><br><span class="line">	<span class="function"><span class="keyword">friend</span> test <span class="title">foo</span><span class="params">(<span class="keyword">double</span>)</span></span>;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	test()&#123;</span><br><span class="line">		<span class="built_in">memset</span>(<span class="built_in">array</span>,<span class="number">0</span>,<span class="number">100</span>*<span class="keyword">sizeof</span>(<span class="keyword">double</span>));</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">double</span> <span class="built_in">array</span>[<span class="number">100</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>同时请考虑以下函数，它产生、修改并传回一个test class object：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">test <span class="title">foo</span><span class="params">(<span class="keyword">double</span> val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	test local;</span><br><span class="line">	local.<span class="built_in">array</span>[<span class="number">0</span>] = val;</span><br><span class="line">	local.<span class="built_in">array</span>[<span class="number">99</span>] = val;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> local;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有一个main（）函数调用上述foo（）函数1000万次：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">main()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> cnt = <span class="number">0</span>; cnt &lt; <span class="number">10000000</span>; cnt++)</span><br><span class="line">	&#123;</span><br><span class="line">		test t = foo(<span class="keyword">double</span>(cnt));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个程序的第一个版本不能实施 NRV 优化，因为 test class 缺少一个 copy constructor。第二个版本加上一个inline copy constructor如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span></span><br><span class="line">test::test(<span class="keyword">const</span> test &amp;t)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">memcpy</span>(<span class="keyword">this</span>,&amp;t,<span class="keyword">sizeof</span>(test));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个copy constructor 的出现激活了C++编译器中的NRV优化。NRV优化的执行并不通过另外独立的优化工具完成。下面是测试时间表：</p>
+<p><img src="C:\Users\84983\AppData\Roaming\Typora\typora-user-images\image-20201119151153912.png" alt="image-20201119151153912"></p>
+<p>虽然NRV优化提供了重要的效率改善，但它还是饱受批评。其中一个原因是，优化由编译器默默完成，而它是否真的被完成，并不十分清楚（因为很少有编译器会说明其实现程度，或是否实现）。第二个原因是，一旦函数变得比较复杂，优化也就变得比较难以施行。在cfront中，只有当所有的named return指令句发生于函数的top level，优化才施行。如果导入“a nested local block witha return s tatement”，cfront 就会静静地将优化关闭。许多程序员主张像这种情况应该以“特殊化的constructor”策略取代之。</p>
+<p>译注：我猜或许Microsoft Visual C++就是Lippman所说的那种编译器。我把前述的程序范例以VC++5.0编译后执行，在Pentium 133，96 MB RAM的机器上的结果如下。加上inline copy constructor之后，按理应实施NRV优化，结果效率反而较差。由于不知Lippman在何种硬设备上测试CC和NCC，所以我的这些数据不应该拿来和上一页的测试结果比较，只宜就NRV的实施与未实施两种情况比较之。</p>
+<p><img src="C:\Users\84983\AppData\Roaming\Typora\typora-user-images\image-20201119151237276.png" alt="image-20201119151237276"></p>
+<p>译注：欲得知程序所费时间，可在main（）的for loop前后调用printlocaltime（），而printlocaltime（）可设计如下（应用了C Runtime Library中的时间函数）：</p>
+<p><img src="C:\Users\84983\AppData\Roaming\Typora\typora-user-images\image-20201119151303951.png" alt="image-20201119151303951"></p>
+<p>上述两个批评主要关心的是编译器可能在施行优化时失败。第三个批评则是从相反的方向出发。例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//这里希望有一个copy constructor</span></span><br><span class="line">	X xx = bar();</span><br><span class="line">	<span class="comment">//...</span></span><br><span class="line">	<span class="comment">//这里调用destructor</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在此情况下，对称性被优化给打破了；程序虽然比较快，却是错误的。难道编译器因为压抑了copy constructor 的调用而在这里出毛病吗？也就是说，难道copy constructor在“object是经由copy而完成其初始化”的情况下，一定要被调用吗？</p>
+<p>这样的需求在许多程序中可能会被征以严格的“效率税”。例如，虽然下面三个初始化操作在语意上相等：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">X <span class="title">xx0</span><span class="params">(<span class="number">1024</span>)</span></span>;</span><br><span class="line">X xx1 = X(<span class="number">1024</span>);</span><br><span class="line">X xx2 = (X)<span class="number">1024</span>;</span><br></pre></td></tr></table></figure>
+
+<p>但是在第二行和第三行中，语法明显地提供了两个步骤的初始化操作：</p>
+<p>1.将一个临时性的 object设以初值 1024；</p>
+<p>2.将临时性的 object以拷贝构造的方式作为 explicit object的初值。</p>
+<p>换句话说，xx0是被单一的constructor操作设定初值：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//C++伪代码</span></span><br><span class="line">xx0.X::X(<span class="number">1024</span>);</span><br></pre></td></tr></table></figure>
+
+<p>而xx1或xx2却调用两个constructor，产生一个临时性object，并针对该临时性object调用class X的destructor：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//C++伪代码</span></span><br><span class="line">X __temp0;</span><br><span class="line">__temp0.X::X(<span class="number">1024</span>);</span><br><span class="line">xx1.X::X(__temp0);</span><br><span class="line">__temp0.X::~X();</span><br></pre></td></tr></table></figure>
+
+<p>C++标准委员会已经讨论过“剔除copy constructor调用操作”的合法性。在我下笔之际，委员会还没有最后的决议。然而，依照 Josee Lajoie （委员会副主席，同时也是Core Language group主席）的看法，NRV优化非常重要，不应该驳回。很明显这项讨论已经逐渐导致多少带点神秘气息的两种情况：是否copy constructor的剔除在“拷贝static object 和local object”时也应该成立？例如，已知下面的程序片段：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Thing outer;</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//可以不考虑inner吗?</span></span><br><span class="line">	<span class="function">Thing <span class="title">inner</span><span class="params">(outer)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>inner应该从outer中拷贝构造起来，或是inner可以简单地被忽略？这样的问题可以很类似地套问在有关static extern objects拷贝构造操作身上。依照Josee的看法，要消除static objects的copy constructor，几乎可确定是不被允许的。至于automatic objects（如inner），则尚未决议。</p>
+<p>一般而言，面对“以一个class object作为另一个class object的初值”的情形，语言允许编译器有大量的自由发挥空间。其利益当然是导致机器码产生时有明显的效率提升。缺点则是你不能够安全地规划你的copy constructor 的副作用，必须视其执行而定。</p>
+<h2 id="Copy-Constructor：要还是不要？"><a href="#Copy-Constructor：要还是不要？" class="headerlink" title="Copy Constructor：要还是不要？"></a>Copy Constructor：要还是不要？</h2><p>已知下面的3D坐标点类：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point3d</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Point3d(<span class="keyword">float</span> x,<span class="keyword">float</span> y,<span class="keyword">float</span> z);</span><br><span class="line">	<span class="comment">//...</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">float</span> _x,_y,_z;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这个class的设计者应该提供一个explicit copy constructor吗？</p>
+<p>上述class的default copy constructor被视为trivial。它既没有任何member（或base）class objects 带有copy constructor，也没任何的virtual base class 或virtual function。所以，默认情况下，一个Point3d class object的“memberwise”初始化操作会导致“bitwise copy”。这样的效率很高，但安全吗？</p>
+<p>答案是yes。三个坐标成员是以数值来存储的。bitwise copy既不会导致memoryleak，也不会产生address aliasing。因此，它既快速，又安全。</p>
+<p>那么，这个class的设计者应该提供一个explicit copy constructor吗？你将如何回答这个问题？答案当然很明显是no。没有任何理由要你提供一个copy constructor函数实例，因为编译器自动为你实施了最好的行为。比较难以回答的是，如果你被问及是否预见class需要大量的memberwise初始化操作，例如以传值（by value）的方式传回objects？如果答案是yes，那么提供一个copy constructor的explicitinline函数实例就非常合理——在“你的编译器提供NRV优化”的前提下。</p>
+<p>例如，Point3d支持下面一组函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Point3d <span class="keyword">operator</span>+(<span class="keyword">const</span> Point3d&amp;, <span class="keyword">const</span> Point3d&amp;);</span><br><span class="line">Point3d <span class="keyword">operator</span>-(<span class="keyword">const</span> Point3d&amp;, <span class="keyword">const</span> Point3d&amp;);</span><br><span class="line">Point3d <span class="keyword">operator</span>*(<span class="keyword">const</span> Point3d&amp;, <span class="keyword">int</span>);</span><br></pre></td></tr></table></figure>
+
+<p>所有那些函数都能够良好地符合NRV template：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	Point3d result;</span><br><span class="line">	<span class="comment">//计算result</span></span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实现copy constructor的最简单方法像这样：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Point3d::Point3d(<span class="keyword">const</span> Point3d &amp;rhs)</span><br><span class="line">&#123;</span><br><span class="line">	_x = rhs._x;</span><br><span class="line">	_y = rhs._y;</span><br><span class="line">	_z = rhs._z;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这没问题，但使用C++library的memcpy（）会更有效率：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Point3d::Point3d(<span class="keyword">const</span> Point3d &amp;rhs)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">memcpy</span>(<span class="keyword">this</span>,&amp;rhs,<span class="keyword">sizeof</span>(Point3d));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>然而不管使用 memcpy（）还是 memset（），都只有在“classes 不含任何由编译器产生的内部members”时才能有效运行。如果Point3d class声明一个或一个以上的virtual functions，或内含一个virtual base class，那么使用上述函数将会导致那些“被编译器产生的内部members”的初值被改写。例如，已知下面的声明：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shape</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//这会改变内部的vptr</span></span><br><span class="line">	Shape() &#123; <span class="built_in">memset</span>(<span class="keyword">this</span>,<span class="number">0</span>,<span class="keyword">sizeof</span>(Shape)); &#125;</span><br><span class="line">	<span class="keyword">virtual</span> ~Shape();</span><br><span class="line">	<span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译器为此constructor扩张的内容看起来像这样：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//扩张后的constructor</span></span><br><span class="line"><span class="comment">//C++伪代码</span></span><br><span class="line">Shape::Shape()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//vptr必须在使用者的代码执行之前先设定妥当</span></span><br><span class="line">	__vptr__Shape = __vtbl__Shape;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//memset会将vptr清为0</span></span><br><span class="line">	<span class="built_in">memset</span>(<span class="keyword">this</span>,<span class="number">0</span>,<span class="keyword">sizeof</span>(Shape));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>如你所见，若要正确使用memset（）和memcpy（），则需要掌握某些C++Object Model 的语意学知识！</p>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>copy constructor的应用，迫使编译器多多少少对你的程序代码做部分转化。尤其是当一个函数以传值（by value）的方式传回一个class object，而该class有一个copy constructor（不论是显式定义出来的，或是合成的）时。这将导致深奥的程序转化——不论在函数的定义上还是在使用上。此外，编译器也将 copy constructor的调用操作优化，以一个额外的第一参数（数值被直接存放于其中）取代 NRV。程序员如果了解那些转换，以及copy constructor 优化后的可能状态，就比较能够控制其程序的执行效率。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">John Doe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2020/11/19/2.3%E7%A8%8B%E5%BA%8F%E8%BD%AC%E5%8C%96%E8%AF%AD%E4%B9%89%E5%AD%A6/">http://example.com/2020/11/19/2.3%E7%A8%8B%E5%BA%8F%E8%BD%AC%E5%8C%96%E8%AF%AD%E4%B9%89%E5%AD%A6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/11/19/2.4%20%E6%88%90%E5%91%98%E4%BB%AC%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E9%98%9F%E4%BC%8D/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info"></div></div></a></div><div class="next-post pull-right"><a href="/2020/11/18/C++%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">C++拷贝构造函数</div></div></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/%E6%AF%94%E9%82%A3%E5%90%8D%E5%B1%85%E5%A4%A9%E5%AD%90.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">John Doe</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">9</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/849830039/849830039.github.io" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:849830039@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#2-3-%E7%A8%8B%E5%BA%8F%E8%BD%AC%E5%8C%96%E8%AF%AD%E6%84%8F%E5%AD%A6%EF%BC%88Program-Transformation%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">2.3 程序转化语意学（Program Transformation）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%BE%E5%BC%8F%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%EF%BC%88Explicit-Initialization%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">显式的初始化操作（Explicit Initialization）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%88Argument-Initialization%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">参数的初始化（Argument Initialization）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%88Return-Value-Initialization%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">返回值的初始化（Return Value Initialization）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E4%BD%BF%E7%94%A8%E8%80%85%E5%B1%82%E9%9D%A2%E5%81%9A%E4%BC%98%E5%8C%96%EF%BC%88Optimization-at-the-User-Level%EF%BC%89"><span class="toc-number">1.4.</span> <span class="toc-text">在使用者层面做优化（Optimization at the User Level）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E7%BC%96%E8%AF%91%E5%99%A8%E5%B1%82%E9%9D%A2%E5%81%9A%E4%BC%98%E5%8C%96%EF%BC%88Optimization-at-the-CompilerLevel%EF%BC%89"><span class="toc-number">1.5.</span> <span class="toc-text">在编译器层面做优化（Optimization at the CompilerLevel）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Copy-Constructor%EF%BC%9A%E8%A6%81%E8%BF%98%E6%98%AF%E4%B8%8D%E8%A6%81%EF%BC%9F"><span class="toc-number">1.6.</span> <span class="toc-text">Copy Constructor：要还是不要？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.7.</span> <span class="toc-text">摘要</span></a></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2020/11/21/3.2%20Data%20Member%E7%9A%84%E5%B8%83%E5%B1%80/" title="No title"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/2020/11/21/3.2%20Data%20Member%E7%9A%84%E5%B8%83%E5%B1%80/" title="No title">No title</a><time datetime="2020-11-21T08:21:16.296Z" title="Created 2020-11-21 16:21:16">2020-11-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/11/21/3.1%20Data%20Member%E7%9A%84%E7%BB%91%E5%AE%9A/" title="No title"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/2020/11/21/3.1%20Data%20Member%E7%9A%84%E7%BB%91%E5%AE%9A/" title="No title">No title</a><time datetime="2020-11-21T08:21:16.295Z" title="Created 2020-11-21 16:21:16">2020-11-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/11/21/3.3%20Data%20Member%E7%9A%84%E5%AD%98%E5%8F%96/" title="No title"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/2020/11/21/3.3%20Data%20Member%E7%9A%84%E5%AD%98%E5%8F%96/" title="No title">No title</a><time datetime="2020-11-21T08:21:16.293Z" title="Created 2020-11-21 16:21:16">2020-11-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/11/21/%E7%AC%AC3%E7%AB%A0%20Data%E8%AF%AD%E6%84%8F%E5%AD%A6/" title="No title"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/2020/11/21/%E7%AC%AC3%E7%AB%A0%20Data%E8%AF%AD%E6%84%8F%E5%AD%A6/" title="No title">No title</a><time datetime="2020-11-21T08:21:08.086Z" title="Created 2020-11-21 16:21:08">2020-11-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/11/19/2.4%20%E6%88%90%E5%91%98%E4%BB%AC%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E9%98%9F%E4%BC%8D/" title="No title"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/2020/11/19/2.4%20%E6%88%90%E5%91%98%E4%BB%AC%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E9%98%9F%E4%BC%8D/" title="No title">No title</a><time datetime="2020-11-19T13:05:09.010Z" title="Created 2020-11-19 21:05:09">2020-11-19</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 By John Doe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>
